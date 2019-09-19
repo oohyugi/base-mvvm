@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
@@ -19,17 +22,55 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://baseurl/"'
+            buildConfigField "String", "AUTH_URL", '"https://smartoauth.stickearn.com/"'
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", '"https://baseurl/"'
+            buildConfigField "String", "AUTH_URL", '"https://smartoauth.stickearn.com/"'
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview"
+
+
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
+    implementation "com.github.bumptech.glide:glide:$glide"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide"
+
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:dagger-android:$dagger"
+
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation "org.mockito:mockito-inline:$mockito"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.1'
+
+    androidTestImplementation "org.mockito:mockito-core:$mockito"
+    androidTestImplementation "org.mockito:mockito-android:$mockito"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
