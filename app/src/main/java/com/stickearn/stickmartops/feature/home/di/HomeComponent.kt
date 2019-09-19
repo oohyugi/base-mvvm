@@ -1,5 +1,6 @@
 package com.stickearn.stickmartops.feature.home.di
 
+import com.stickearn.stickmartops.core.di.CoreModule
 import com.stickearn.stickmartops.feature.home.ui.HomeFragment
 import dagger.Component
 
@@ -10,7 +11,8 @@ import dagger.Component
 @Component(
     modules = [
         HomeModule::class,
-        HomeViewModelModule::class]
+        HomeViewModelModule::class,
+        CoreModule::class]
 )
 interface HomeComponent {
     fun inject(fragment: HomeFragment)

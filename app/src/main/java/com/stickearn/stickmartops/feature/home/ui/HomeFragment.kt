@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.gson.Gson
 import com.stickearn.stickmartops.R
 import com.stickearn.stickmartops.core.base.BaseFragment
+import com.stickearn.stickmartops.core.di.CoreModule
+import com.stickearn.stickmartops.core.helper.PrefHelper
+import com.stickearn.stickmartops.core.utils.loge
 import com.stickearn.stickmartops.feature.home.di.DaggerHomeComponent
 import com.stickearn.stickmartops.feature.home.di.HomeModule
 import javax.inject.Inject
@@ -20,6 +24,8 @@ class HomeFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var prefHelper: PrefHelper
     private val mViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
     }
@@ -36,7 +42,7 @@ class HomeFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         injectDI()
 
-
+        Gson().toJson(prefHelper.getUserLogin()).loge("User Data")
         initObserve()
     }
 
@@ -48,7 +54,8 @@ class HomeFragment : BaseFragment() {
 
 
     private fun injectDI() {
-        DaggerHomeComponent.builder().homeModule(HomeModule()).build().inject(this)
+        DaggerHomeComponent.builder().homeModule(HomeModule()).coreModule(CoreModule(context!!))
+            .build().inject(this)
     }
 
 }

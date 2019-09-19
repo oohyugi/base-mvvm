@@ -1,5 +1,6 @@
 package com.stickearn.stickmartops.feature.home.di
 
+import com.stickearn.stickmartops.core.di.CoreModule
 import com.stickearn.stickmartops.core.utils.AppDispatchers
 import com.stickearn.stickmartops.data.di.DataModule
 import com.stickearn.stickmartops.data.remote.ApiService
@@ -12,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 /**
  * Created by oohyugi on 2019-09-18.
  */
-@Module(includes = [DataModule::class])
+@Module(includes = [DataModule::class, CoreModule::class])
 class HomeModule {
 
     @HomeScope
