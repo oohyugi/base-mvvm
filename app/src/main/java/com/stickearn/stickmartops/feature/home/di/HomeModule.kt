@@ -3,9 +3,8 @@ package com.stickearn.stickmartops.feature.home.di
 import com.stickearn.stickmartops.core.di.CoreModule
 import com.stickearn.stickmartops.core.utils.AppDispatchers
 import com.stickearn.stickmartops.data.di.DataModule
-import com.stickearn.stickmartops.data.remote.ApiService
-import com.stickearn.stickmartops.data.repository.login.LoginRepository
-import com.stickearn.stickmartops.feature.home.domain.HomeUseCase
+import com.stickearn.stickmartops.data.source.remote.RemoteHomeDataSource
+import com.stickearn.stickmartops.data.source.repository.HomeRepository
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
@@ -16,20 +15,13 @@ import kotlinx.coroutines.Dispatchers
 @Module(includes = [DataModule::class, CoreModule::class])
 class HomeModule {
 
+
     @HomeScope
     @Provides
-    fun provideHomeRepository(apiServiceBase: ApiService): LoginRepository {
-        return LoginRepository.LoginRepositoryImpl(apiServiceBase)
+    fun provideHomeRepository(remoteHomeDataSource: RemoteHomeDataSource): HomeRepository {
+        return HomeRepository.HomeRepositoryImpl(remoteHomeDataSource)
     }
 
-    //
-    @HomeScope
-    @Provides
-    fun provideHomeUseCase(repositoryImpl: LoginRepository): HomeUseCase {
-        return HomeUseCase(repositoryImpl)
-    }
-
-    //
     @HomeScope
     @Provides
     fun provideAppDispatcher(): AppDispatchers = AppDispatchers(Dispatchers.Main, Dispatchers.IO)

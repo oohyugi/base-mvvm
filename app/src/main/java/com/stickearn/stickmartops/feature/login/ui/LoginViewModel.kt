@@ -5,16 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.stickearn.stickmartops.core.base.BaseViewModel
 import com.stickearn.stickmartops.core.base.BaseViewState
+import com.stickearn.stickmartops.core.model.RequestLoginMdl
 import com.stickearn.stickmartops.core.model.ResponseLoginMdl
 import com.stickearn.stickmartops.core.utils.AppDispatchers
+import com.stickearn.stickmartops.data.source.repository.LoginRepository
 import com.stickearn.stickmartops.data.utils.ResultState
-import com.stickearn.stickmartops.feature.login.domain.LoginUseCase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val useCase: LoginUseCase,
+    private val repository: LoginRepository,
     private val dispatcher: AppDispatchers
 ) : BaseViewModel() {
 
@@ -28,7 +29,7 @@ class LoginViewModel @Inject constructor(
         _loginResult.value = BaseViewState.ShowLoading
         viewModelScope.launch {
             val request = withContext(dispatcher.io) {
-                useCase.postLogin(email, password)
+                repository.postLogin(RequestLoginMdl(email, password))
             }
             when (request) {
                 is ResultState.Success -> _loginResult.value =
