@@ -8,7 +8,7 @@ data class RequestLoginMdl(
     var password: String? = null
 )
 
-data class ResponseLoginMdl(
+data class LoginMdl(
     @SerializedName("refresh_expired_at")
     val refreshExpiredAt: String = "",
     @SerializedName("expired_at")

@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stickearn.stickmartops.core.base.BaseViewState
-import com.stickearn.stickmartops.core.model.ExampleMdl
+import com.stickearn.stickmartops.core.model.MartboxMdl
 import com.stickearn.stickmartops.core.utils.AppDispatchers
-import com.stickearn.stickmartops.data.source.repository.HomeRepository
+import com.stickearn.stickmartops.data.repository.HomeRepository
 import com.stickearn.stickmartops.data.utils.ResultState
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,25 +19,25 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     // TODO: Implement the ViewModel
 
-    private val _exampleResult = MutableLiveData<BaseViewState<List<ExampleMdl>>>()
+    private val _mMartboxListResult = MutableLiveData<BaseViewState<List<MartboxMdl>>>()
 
-    val exampleResult: LiveData<BaseViewState<List<ExampleMdl>>> = _exampleResult
+    val mMbarboxList: LiveData<BaseViewState<List<MartboxMdl>>> = _mMartboxListResult
 
     init {
-        loadExample()
+        loadMartBox()
     }
 
-    fun loadExample() {
-        _exampleResult.value = BaseViewState.ShowLoading
+    private fun loadMartBox() {
+        _mMartboxListResult.value = BaseViewState.Loading
         viewModelScope.launch {
             val request = withContext(dispatcher.io) {
                 repository.fetchHome()
             }
             when (request) {
-                is ResultState.Success -> _exampleResult.value =
-                    BaseViewState.Success(request.data?.data)
-                is ResultState.Error -> _exampleResult.value =
-                    BaseViewState.ShowError(request.errorMessage)
+                is ResultState.Success -> _mMartboxListResult.value =
+                    BaseViewState.Success(request.data)
+                is ResultState.Error -> _mMartboxListResult.value =
+                    BaseViewState.Error(request.errorMessage)
             }
         }
     }

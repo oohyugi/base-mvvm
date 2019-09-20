@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.stickearn.stickmartops.core.base.BaseViewModel
 import com.stickearn.stickmartops.core.base.BaseViewState
+import com.stickearn.stickmartops.core.model.LoginMdl
 import com.stickearn.stickmartops.core.model.RequestLoginMdl
-import com.stickearn.stickmartops.core.model.ResponseLoginMdl
 import com.stickearn.stickmartops.core.utils.AppDispatchers
-import com.stickearn.stickmartops.data.source.repository.LoginRepository
+import com.stickearn.stickmartops.data.repository.LoginRepository
 import com.stickearn.stickmartops.data.utils.ResultState
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,13 +20,13 @@ class LoginViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _loginResult = MutableLiveData<BaseViewState<ResponseLoginMdl>>()
+    private val _loginResult = MutableLiveData<BaseViewState<LoginMdl>>()
 
-    val responseLogin: LiveData<BaseViewState<ResponseLoginMdl>> = _loginResult
+    val responseLogin: LiveData<BaseViewState<LoginMdl>> = _loginResult
 
 
     fun login(email: String?, password: String?) {
-        _loginResult.value = BaseViewState.ShowLoading
+        _loginResult.value = BaseViewState.Loading
         viewModelScope.launch {
             val request = withContext(dispatcher.io) {
                 repository.postLogin(RequestLoginMdl(email, password))
@@ -35,7 +35,7 @@ class LoginViewModel @Inject constructor(
                 is ResultState.Success -> _loginResult.value =
                     BaseViewState.Success(request.data?.data)
                 is ResultState.Error -> _loginResult.value =
-                    BaseViewState.ShowError(request.errorMessage)
+                    BaseViewState.Error(request.errorMessage)
             }
         }
     }

@@ -5,10 +5,11 @@ buildscript {
     ext.retrofit = '2.6.0'
     ext.glide = '4.9.0'
     ext.okhttp = '3.12.1'
-    ext.lifecycle ='2.2.0-alpha04'
+    ext.lifecycle ='2.2.0-alpha05'
     ext.recyclerview = '1.0.0'
     ext.mockito = '2.23.4'
     ext.dagger = '2.23.2'
+    ext.room_version = '2.2.0-rc01'
     repositories {
         google()
         jcenter()

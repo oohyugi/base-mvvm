@@ -3,7 +3,7 @@ package com.stickearn.stickmartops.core.helper
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.stickearn.stickmartops.core.model.ResponseLoginMdl
+import com.stickearn.stickmartops.core.model.LoginMdl
 import javax.inject.Inject
 
 /**
@@ -22,18 +22,18 @@ constructor(private val context: Context) {
         return context.getSharedPreferences("PrefStickmartOps", Context.MODE_PRIVATE)
     }
 
-    fun saveUserLogin(data: ResponseLoginMdl?) {
+    fun saveUserLogin(data: LoginMdl?) {
         data?.apply {
             pref().edit().putString(PREF_USER_LOGIN, Gson().toJson(this)).apply()
         }
 
     }
 
-    fun getUserLogin(): ResponseLoginMdl? {
+    fun getUserLogin(): LoginMdl? {
         val json = pref().getString(PREF_USER_LOGIN, null)
-        var user: ResponseLoginMdl? = null
+        var user: LoginMdl? = null
         json?.apply {
-            user = Gson().fromJson<ResponseLoginMdl>(json, ResponseLoginMdl::class.java)
+            user = Gson().fromJson<LoginMdl>(json, LoginMdl::class.java)
         }
 
         return user

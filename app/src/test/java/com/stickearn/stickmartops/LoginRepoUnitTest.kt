@@ -1,8 +1,8 @@
 package com.stickearn.stickmartops
 
 import com.stickearn.stickmartops.core.model.BaseMdl
+import com.stickearn.stickmartops.core.model.LoginMdl
 import com.stickearn.stickmartops.core.model.RequestLoginMdl
-import com.stickearn.stickmartops.core.model.ResponseLoginMdl
 import com.stickearn.stickmartops.data.source.LoginDataSource
 import com.stickearn.stickmartops.data.source.remote.AuthService
 import com.stickearn.stickmartops.data.source.remote.RemoteLoginDataSource
@@ -29,7 +29,7 @@ class LoginRepoUnitTest {
         true,
         200,
         "",
-        ResponseLoginMdl(
+        LoginMdl(
             "",
             "",
             ""
