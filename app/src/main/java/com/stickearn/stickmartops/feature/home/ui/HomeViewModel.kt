@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.stickearn.stickmartops.core.base.BaseViewState
 import com.stickearn.stickmartops.core.model.ResponseLoginMdl
 import com.stickearn.stickmartops.core.utils.AppDispatchers
+import com.stickearn.stickmartops.core.utils.loge
 import com.stickearn.stickmartops.data.utils.ResultState
 import com.stickearn.stickmartops.feature.home.domain.HomeUseCase
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ class HomeViewModel @Inject constructor(
 
 
     fun loadExample(email: String?, password: String?) {
+        email?.loge("masuk")
         _exampleResult.value = BaseViewState.ShowLoading
         viewModelScope.launch {
             val request = withContext(dispatcher.io) {

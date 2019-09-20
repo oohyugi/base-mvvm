@@ -1,8 +1,19 @@
 package com.stickearn.stickmartops.core.base
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 
 /**
  * Created by oohyugi on 2019-09-18.
  */
-open class BaseFragment : Fragment()
+abstract class BaseFragment : Fragment() {
+
+
+    lateinit var mContext: Context
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
+
+}
