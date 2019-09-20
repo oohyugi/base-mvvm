@@ -1,8 +1,6 @@
 package com.stickearn.stickmartops.feature.login.di
 
-import android.content.Context
 import com.stickearn.stickmartops.core.di.CoreModule
-import com.stickearn.stickmartops.core.helper.PrefHelper
 import com.stickearn.stickmartops.core.utils.AppDispatchers
 import com.stickearn.stickmartops.data.di.DataModule
 import com.stickearn.stickmartops.data.source.remote.RemoteLoginDataSource
@@ -24,11 +22,5 @@ class LoginModule {
     @Provides
     fun provideAppDispatcher(): AppDispatchers = AppDispatchers(Dispatchers.Main, Dispatchers.IO)
 
-
-    @LoginScope
-    @Provides
-    fun providePrefHelper(context: Context): PrefHelper {
-        return PrefHelper(context)
-    }
 
 }

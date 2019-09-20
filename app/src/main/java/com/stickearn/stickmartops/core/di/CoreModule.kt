@@ -1,6 +1,7 @@
 package com.stickearn.stickmartops.core.di
 
 import android.content.Context
+import com.stickearn.stickmartops.core.helper.PrefHelper
 import dagger.Module
 import dagger.Provides
 
@@ -18,5 +19,9 @@ class CoreModule(private val context: Context) {
         return context
     }
 
+    @Provides
+    fun providePrefHelper(context: Context): PrefHelper {
+        return PrefHelper(context)
+    }
 
 }
