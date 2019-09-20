@@ -1,29 +1,31 @@
 package com.stickearn.stickmartops.feature.home.di
 
-import com.stickearn.stickmartops.core.di.CoreModule
-import com.stickearn.stickmartops.core.utils.AppDispatchers
-import com.stickearn.stickmartops.data.di.DataModule
+import com.stickearn.stickmartops.data.repository.HomeRepository
+import com.stickearn.stickmartops.data.source.local.LocalMartboxDataSource
+import com.stickearn.stickmartops.data.source.local.MartboxDao
 import com.stickearn.stickmartops.data.source.remote.RemoteHomeDataSource
-import com.stickearn.stickmartops.data.source.repository.HomeRepository
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.Dispatchers
 
 /**
  * Created by oohyugi on 2019-09-18.
  */
-@Module(includes = [DataModule::class, CoreModule::class])
+@Module
 class HomeModule {
 
 
-    @HomeScope
     @Provides
-    fun provideHomeRepository(remoteHomeDataSource: RemoteHomeDataSource): HomeRepository {
-        return HomeRepository.HomeRepositoryImpl(remoteHomeDataSource)
+    fun provideHomeRepository(
+        remoteHomeDataSource: RemoteHomeDataSource,
+        localMartboxDataSource: LocalMartboxDataSource,
+        dbMartbox: MartboxDao
+    ): HomeRepository {
+        return HomeRepository.HomeRepositoryImpl(
+            remoteHomeDataSource,
+            localMartboxDataSource,
+            dbMartbox
+        )
     }
 
-    @HomeScope
-    @Provides
-    fun provideAppDispatcher(): AppDispatchers = AppDispatchers(Dispatchers.Main, Dispatchers.IO)
 
 }

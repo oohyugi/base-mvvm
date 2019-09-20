@@ -13,7 +13,7 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class LoginViewModelModule {
 
-    @LoginScope
+
     @Binds
     internal abstract fun bindViewModelFactory(viewModelFactory: BaseViewModelFactory): ViewModelProvider.Factory
 

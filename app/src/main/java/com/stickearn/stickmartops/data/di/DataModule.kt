@@ -1,11 +1,17 @@
 package com.stickearn.stickmartops.data.di
 
 import com.stickearn.stickmartops.BuildConfig
+import com.stickearn.stickmartops.core.utils.AppDispatchers
 import com.stickearn.stickmartops.data.source.HomeDataSource
 import com.stickearn.stickmartops.data.source.LoginDataSource
+import com.stickearn.stickmartops.data.source.local.AppDatabase
+import com.stickearn.stickmartops.data.source.local.LocalMartboxDataSource
+import com.stickearn.stickmartops.data.source.local.MartboxDao
 import com.stickearn.stickmartops.data.source.remote.*
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
+
 
 /**
  * Created by oohyugi on 2019-09-18.
@@ -14,9 +20,18 @@ import dagger.Provides
 class DataModule {
 
 
+//    @Singleton
+
+    //    @Singleton
     @Provides
-    fun provideServiceBase(): BaseService {
-        return ApiClient.retrofitClient(BuildConfig.BASE_URL).create(BaseService::class.java)
+    @Singleton
+    fun provideMartboxDao(appDatabase: AppDatabase): MartboxDao {
+        return appDatabase.martboxDao()
+    }
+
+    @Provides
+    fun provideServiceBase(): MartService {
+        return ApiClient.retrofitClient(BuildConfig.API_URL).create(MartService::class.java)
     }
 
     @Provides
@@ -24,15 +39,25 @@ class DataModule {
         return ApiClient.retrofitClient(BuildConfig.AUTH_URL).create(AuthService::class.java)
     }
 
-    @JvmSuppressWildcards
+
     @Provides
     fun provideRemoteLoginDataSource(apiServiceAuth: AuthService): LoginDataSource {
         return RemoteLoginDataSource(apiServiceAuth)
     }
 
-    @JvmSuppressWildcards
+
     @Provides
-    fun provideRemoteHomeDataSource(apiServiceBase: BaseService): HomeDataSource {
-        return RemoteHomeDataSource(apiServiceBase)
+    fun provideRemoteHomeDataSource(apiServiceMart: MartService): HomeDataSource {
+        return RemoteHomeDataSource(apiServiceMart)
     }
+
+    @Provides
+    fun provideLocalHomeDataSource(
+        dbMartbox: MartboxDao,
+        appDispatchers: AppDispatchers
+    ): HomeDataSource {
+        return LocalMartboxDataSource(dbMartbox, appDispatchers)
+    }
+
+
 }

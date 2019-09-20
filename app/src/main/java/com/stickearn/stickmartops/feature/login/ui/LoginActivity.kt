@@ -68,7 +68,7 @@ class LoginActivity : BaseActivity() {
                         this@LoginActivity.toast("Success")
                         MainActivity.startThisActivity(this@LoginActivity)
                     }
-                    is BaseViewState.ShowError -> this@LoginActivity.toast(it.errorMessage)
+                    is BaseViewState.Error -> this@LoginActivity.toast(it.errorMessage)
                 }
             })
         }
