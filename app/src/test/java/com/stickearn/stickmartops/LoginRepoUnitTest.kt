@@ -3,8 +3,9 @@ package com.stickearn.stickmartops
 import com.stickearn.stickmartops.core.model.BaseMdl
 import com.stickearn.stickmartops.core.model.RequestLoginMdl
 import com.stickearn.stickmartops.core.model.ResponseLoginMdl
-import com.stickearn.stickmartops.data.remote.ApiService
-import com.stickearn.stickmartops.data.repository.login.LoginRepository
+import com.stickearn.stickmartops.data.source.LoginDataSource
+import com.stickearn.stickmartops.data.source.remote.AuthService
+import com.stickearn.stickmartops.data.source.remote.RemoteLoginDataSource
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -21,8 +22,8 @@ import retrofit2.Response
 class LoginRepoUnitTest {
 
 
-    private var mApiService = mock(ApiService::class.java)
-    private lateinit var repository: LoginRepository
+    private var mApiService = mock(AuthService::class.java)
+    private lateinit var repository: LoginDataSource
 
     private val loginResponse = BaseMdl(
         true,
@@ -40,7 +41,7 @@ class LoginRepoUnitTest {
 
     @Before
     fun setup() {
-        repository = LoginRepository.LoginRepositoryImpl(mApiService)
+        repository = RemoteLoginDataSource(mApiService)
 
     }
 
