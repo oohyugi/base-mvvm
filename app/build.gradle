@@ -11,7 +11,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     defaultConfig {
-        applicationId "com.stickearn.stickmartops"
+        applicationId "com.yogiputra.basemvvm"
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
@@ -22,12 +22,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "API_URL", '"https://smartapi.stickearn.com/api/v1/"'
-            buildConfigField "String", "AUTH_URL", '"https://smartoauth.stickearn.com/"'
+            buildConfigField "String", "API_URL", '"http"'
+            buildConfigField "String", "AUTH_URL", '"http"'
         }
         debug {
-            buildConfigField "String", "API_URL", '"https://smartapi.stickearn.com/api/v1/"'
-            buildConfigField "String", "AUTH_URL", '"https://smartoauth.stickearn.com/"'
+            buildConfigField "String", "API_URL", '"https:///"'
+            buildConfigField "String", "AUTH_URL", '"https:///"'
         }
     }
 }
