@@ -56,7 +56,7 @@ class LoginViewModelTest {
 
     )
 
-    private val loginRequest = RequestLoginMdl("admin@stickmart.store", "Stickmart2018")
+    private val loginRequest = RequestLoginMdl()
 
 
     @Before

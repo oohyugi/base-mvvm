@@ -44,7 +44,7 @@ class LoginActivity : BaseActivity() {
         injectDI()
 
         btnLogin?.setOnClickListener {
-            mViewModel.login("admin@stickmart.store", "Stickmart2018")
+            mViewModel.login("email","pass")
         }
 
         initObserve()
